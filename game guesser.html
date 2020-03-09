@@ -19,16 +19,22 @@
         #remark {
             color: red;
         }
+
         #remarks {
             color: green;
         }
+
         #remark1 {
             color: red;
         }
+
         #remarks1 {
             color: green;
         }
-         #result{color: green;} 
+
+        #result {
+            color: green;
+        }
     </style>
 </head>
 
@@ -41,145 +47,111 @@
         <div class="form" id="player1">
             <h2>Player 1</h2>
             <label for="guessField">Enter a guess: </label>
-            <input type="text" id="guessField">
+            <input type="number" min="0" max="10" id="guessField" >
             <p id="remark"></p>
             <p id="remarks"></p>
             <input type="submit" value="Submit guess" id="submitguess">
-            <!-- <input type="button" value="restart" id="restart"> -->
             <h3 id="score"></h3>
         </div>
-    
+
         <div class="form" id="player2">
             <h2>Player 2</h2>
             <label for="guessField1">Enter a guess: </label>
-            <input type="text" id="guessField1">
+            <input type="number" min="0" max="10"  id="guessField1">
             <p id="remark1"></p>
             <p id="remarks1"></p>
-            <input type="submit" value="Submit guess" id="submitguess1">
-            <!-- <input type="button" value="restart" id="restart1"> -->
+            <input type="submit" disabled value="Submit guess" id="submitguess1">
             <h3 id="score1"></h3>
         </div>
-        
+
         <div class="form">
             <h2 id="Result"></h2>
             <input type="button" value="restart" id="restart1">
-          </div>
+        </div>
     </div>
-  
-  <script type="text/javascript">
-        // Restart button
-        // restart.addEventListener("click", restarter);
-        // function restarter() {
-        //     setTimeout(function () { location.reload() }, 200);
-        // }
-        
+
+    <script type="text/javascript">
+
         // Submit guess
-        var y = Math.floor(Math.random() * 10 + 1);
-        var guess = 1;
+        let y = Math.floor(Math.random() * 10 + 1);
+        let guess = 1;
         submitguess.addEventListener("click", submitguesses);
         // random value generated 
         function submitguesses() {
-
-
             // counting the number of guesses 
-            // made for correct Guess 
-
-
-            // document.getElementById("submitguess").onclick = function () {
 
             // number guessed by user      
-            var x = document.getElementById("guessField").value;
+            let x = document.getElementById("guessField").value;
 
             if (x == "") {
                 document.getElementById("remark").innerHTML = "Enter number between 1 to 10";
-                //    alert("Enter number between 1 to 10"); 
             }
-            else if (x > y) /* if guessed number is greater 
+            else if (x > y)
+            /* if guessed number is greater 
                    than actual number*/ {
                 guess++;
-                //alert("OOPS SORRY!! TRY A SMALLER NUMBER"); 
                 document.getElementById("remark").innerHTML = "SORRY!! TRY A SMALLER NUMBER";
-
+                document.getElementById("guessField").focus();
             }
             else if (x == y) {
-                // alert(`CONGRATULATIONS!!! YOU GUESSED IT RIGHT IN 
-                //            ${guess}  GUESSES`); 
                 document.getElementById("remarks").innerHTML = `CONGRATULATIONS!!! YOU GUESSED IT RIGHT IN 
                ${guess}  GUESSES`;
-               document.getElementById("score").innerHTML = `Player 1 Score:${guess}`;
-               document.getElementById("submitguess").disabled = true;
-            //    let g = guess ; 
-               
+                document.getElementById("score").innerHTML = `Player 1 Gusses:${guess}`;
+                document.getElementById("submitguess").disabled = true;
+                document.getElementById("submitguess1").disabled = false;
+                document.getElementById("guessField1").focus();
             }
             else {
                 guess++;
                 //alert("OOPS SORRY!! TRY A GREATER NUMBER") 
                 document.getElementById("remark").innerHTML = "SORRY!! TRY A GREATER NUMBER";
+                document.getElementById("guessField").focus();
             }
-        } 
-
+        }
 
         //NEW SCRIPT of player
-
-
 
         restart1.addEventListener("click", restarter1);
         function restarter1() {
             setTimeout(function () { location.reload() }, 200);
         }
-        
+
         // Submit guess
-        var b = Math.floor(Math.random() * 10 + 1);
-        var guess1 = 1;
+        let b = Math.floor(Math.random() * 10 + 1);
+        let guess1 = 1;
         submitguess1.addEventListener("click", submitguesses1);
         // random value generated 
         function submitguesses1() {
-
-
-            // counting the number of guesses 
-            // made for correct Guess 
-
-
-            // document.getElementById("submitguess").onclick = function () {
-
             // number guessed by user      
             var a = document.getElementById("guessField1").value;
 
             if (a == "") {
                 document.getElementById("remark1").innerHTML = "Enter number between 1 to 10";
-                //    alert("Enter number between 1 to 10"); 
             }
-            else if (a > b) /* if guessed number is greater 
-                   than actual number*/ {
+            else if (a > b) {
                 guess1++;
-                //alert("OOPS SORRY!! TRY A SMALLER NUMBER"); 
                 document.getElementById("remark1").innerHTML = "SORRY!! TRY A SMALLER NUMBER";
 
             }
             else if (a == b) {
-                // alert(`CONGRATULATIONS!!! YOU GUESSED IT RIGHT IN 
-                //            ${guess}  GUESSES`); 
                 document.getElementById("remarks1").innerHTML = `CONGRATULATIONS!!! YOU GUESSED IT RIGHT IN 
                ${guess1}  GUESSES`;
-               document.getElementById("score1").innerHTML = `Player 2 Score:${guess1}`;
-               document.getElementById("submitguess1").disabled = true;
-            //    let g1 = guess1;
+                document.getElementById("score1").innerHTML = `Player 2 Gusses:${guess1}`;
+                document.getElementById("submitguess1").disabled = true;
+                if (guess < guess1) {
+                    document.getElementById("Result").innerHTML = "Player 1 is Winner";
+                } else if (guess == guess1) {
+                    document.getElementById("Result").innerHTML = "Match is tie";
+                } else {
+                    document.getElementById("Result").innerHTML = "Player 2 is Winner";
+                }
+                //    let g1 = guess1;
             }
             else {
                 guess1++;
-                //alert("OOPS SORRY!! TRY A GREATER NUMBER") 
                 document.getElementById("remark1").innerHTML = "SORRY!! TRY A GREATER NUMBER";
             }
-         
-        if ( guess < guess1)
-        {
-            document.getElementById("Result").innerHTML = "Player 1 is Winner";
-        }else if (guess == guess1){
-            document.getElementById("Result").innerHTML = "Match is tie";
-        }else
-        {
-            document.getElementById("Result").innerHTML = "Player 2 is Winner";
-        }
+
         }
     </script>
 </body>
